@@ -3,7 +3,7 @@
 **Silent Chrome extension for AI-powered screen OCR and instant answer detection**
 
 Manifest V3 Chrome extension that captures screen areas, extracts text using GPT-4 Vision OCR, and displays answers with nearly invisible UI. Perfect for online tests, quizzes, and quick information lookup.
-> 💡 **Looking for faster respose and stability?** Check out QuickSnip-AI https://github.com/CheffCorleOne/QuickSnip-AI-Free with GPT-4 Vision
+> 💡 **Looking for a free version?** Check out QuickSnip-AI Free https://github.com/CheffCorleOne/QuickSnip-AI-Free with GPT-4 Vision
 ---
 
 ## ✨ Key Features
