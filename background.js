@@ -107,7 +107,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
-// Обрезка изображения - отправляем в content script
+// cropping and sending
 async function cropImage(dataUrl, cropArea) {
   console.log("🔧 Background: Sending to content script for cropping");
   
@@ -130,20 +130,20 @@ async function cropImage(dataUrl, cropArea) {
   });
 }
 
-// НОВАЯ ФУНКЦИЯ: OCR + AI анализ
+// OCR + AI analys
 async function analyzeWithOCR(screenshotDataUrl) {
   console.log("🔧 Background: =============================");
   console.log("🔧 Background: STEP 1: OCR EXTRACTION");
   console.log("🔧 Background: =============================");
   
-  // Получаем API ключ
+  // getiing API key
   console.log("🔧 Background: Getting API key from storage...");
   const result = await chrome.storage.sync.get(['openaiApiKey']);
   let apiKey = result.openaiApiKey;
   
   console.log("🔧 Background: Storage API key:", apiKey ? `${apiKey.substring(0, 10)}...` : "NOT FOUND");
   
-  // Если нет в storage, используем хардкод из config.js
+  // no storage -< harcoded. Can be used for external env files by changing the code itself
   if (!apiKey || apiKey.includes("your-openai-key")) {
     console.log("🔧 Background: Using hardcoded key from config...");
     // HARDCODED KEY - insert directly!
@@ -158,11 +158,11 @@ async function analyzeWithOCR(screenshotDataUrl) {
 
   console.log("🔧 Background: ✅ API key OK");
 
-  // Конвертируем base64
+  // convert to base64
   const base64Image = screenshotDataUrl.replace(/^data:image\/\w+;base64,/, '');
   console.log("🔧 Background: Base64 image length:", base64Image.length);
   
-  // Используем GPT-4 Vision для извлечения текста
+  //GPT-4 vision for text analysys
   console.log("🔧 Background: Calling OpenAI API for OCR...");
   console.log("🔧 Background: Model: gpt-4o-mini");
   
@@ -219,7 +219,7 @@ async function analyzeWithOCR(screenshotDataUrl) {
     throw new Error('No text extracted from image');
   }
 
-  // Шаг 2: Анализ вопроса и получение ответа
+  // Step - question analysis and respond
   console.log("🔧 Background: =============================");
   console.log("🔧 Background: STEP 2: GET ANSWER");
   console.log("🔧 Background: =============================");
@@ -277,3 +277,4 @@ DO NOT add any explanation, just the answer.`
   
   return answer || "No answer";
 }
+
