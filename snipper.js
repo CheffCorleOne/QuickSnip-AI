@@ -1,6 +1,6 @@
 console.log("🎯 Snipper: Stealth mode loaded");
 
-// Проверяем не загружен ли уже
+// check if alreaedy loaded
 if (window.snipperLoaded) {
   console.log("🎯 Snipper: Already loaded, skipping");
 } else {
@@ -92,7 +92,7 @@ function endSelection(e) {
   
   if (width > 30 && height > 30) {
     console.log("🎯 Snipper: ✅ Area OK, starting capture");
-    // Сразу убираем overlay - НИКАКИХ индикаторов
+    // no overlay no indicators
     cleanup();
     captureAreaAndProcess(left, top, width, height);
   } else {
@@ -105,7 +105,7 @@ function captureAreaAndProcess(left, top, width, height) {
   console.log("🎯 Snipper: ===== CAPTURE STARTING =====");
   console.log("🎯 Snipper: Area:", { left, top, width, height });
   
-  // Захват БЕЗ индикаторов
+  // capture without indicator
   chrome.runtime.sendMessage({ 
     action: 'captureVisibleTab',
     cropArea: { left, top, width, height }
@@ -139,7 +139,7 @@ function showStealthAnswer(answer) {
   console.log("🎯 Snipper: ===== SHOWING ANSWER =====");
   console.log("🎯 Answer:", answer);
   
-  // Максимально незаметный текст для светлого фона
+  // makes it almost invisble in white background
   const popup = document.createElement('div');
   popup.id = 'stealth-answer';
   popup.style.cssText = `
@@ -163,7 +163,7 @@ function showStealthAnswer(answer) {
   `;
   popup.textContent = answer;
   
-  // При наведении становится чуть заметнее
+  // mouse hover makes it more visible
   popup.addEventListener('mouseenter', () => {
     popup.style.opacity = '0.9';
     popup.style.color = 'rgba(150, 150, 150, 0.9)';
@@ -182,13 +182,13 @@ function showStealthAnswer(answer) {
   document.body.appendChild(popup);
   console.log("🎯 Snipper: ✅ Popup added to page");
   
-  // Автоудаление через 15 секунд
+  // autodelete popup in 4 sec
   setTimeout(() => {
     if (popup.parentNode) {
       console.log("🎯 Snipper: Auto-removing popup");
       popup.remove();
     }
-  }, 15000);
+  }, 4000);
 }
 
 function handleKeyPress(e) {
@@ -208,7 +208,7 @@ function cleanup() {
   chrome.runtime.sendMessage({ action: 'snipperDeactivated' });
 }
 
-// Обработчик сообщений
+// message processor
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   console.log("🎯 Snipper: ===== MESSAGE RECEIVED =====");
   console.log("🎯 Snipper: Action:", request.action);
@@ -232,7 +232,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
-// Функция обрезки изображения на странице
+// framing area
 async function cropImageInPage(dataUrl, cropArea) {
   return new Promise((resolve) => {
     const img = new Image();
@@ -256,4 +256,5 @@ async function cropImageInPage(dataUrl, cropArea) {
   });
 }
 
-} // конец if (window.snipperLoaded)
+
+} // end if (window.snipperLoaded)
