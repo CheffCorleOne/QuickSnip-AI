@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "OpenRoute as hidden helper",
+  "version": "2.1",
+  "description": "OpenRoute models based helper (FREE)",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "commands": {
+    "activate_snipper": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+X",
+        "mac": "Command+Shift+X"
+      },
+      "description": "Activate silent snipper"
+    }
+  },
+  "action": {
+    "default_title": "AI Screen Snip (Gemini Free)"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}
