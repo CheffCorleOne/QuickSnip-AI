@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "OpenRoute as hidden helper",
+  "name": "ChatGPT as helper",
   "version": "2.1",
-  "description": "OpenRoute models based helper (FREE)",
+  "description": "Silent OCR + AI answer helper powered by GPT model",
   "permissions": [
     "activeTab",
     "storage",
